@@ -1,40 +1,44 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './src/index.js', // точка входа
+  entry: './src/index.js',
   output: {
-    filename: 'bundle.js', // итоговый файл
     path: path.resolve(__dirname, 'dist'),
-    clean: true, // очищает dist перед сборкой
+    filename: 'bundle.js',
+    clean: true
   },
-  mode: 'development', // режим по умолчанию
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    static: './dist',
+    open: true,
+    hot: true
+  },
   module: {
     rules: [
       {
-        test: /\.txt$/,
-        use: 'raw-loader',
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
-        test: /\.css$/,
-        use: [MiniCSSExtractPlugin.loader, 'css-loader'],
+        test: /\.txt$/i,
+        use: 'raw-loader'
       },
-    ],
+      {
+        test: /\.js$/i,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/index.html'
     }),
-    new MiniCSSExtractPlugin(),
-  ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),
-    },
-    port: 8080,
-    open: true,
-    hot: true,
-  },
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    })
+  ]
 };
-
