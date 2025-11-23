@@ -4,7 +4,7 @@
   "description": "Modules",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
+    "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "lint": "eslint .",
     "test": "jest",
@@ -27,6 +27,7 @@
     "url": "https://github.com/pfokin92/modules_1/issues"
   },
   "homepage": "https://github.com/pfokin92/modules_1#readme",
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
