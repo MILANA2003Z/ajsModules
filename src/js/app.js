@@ -1,1 +1,3 @@
-console.log('app worked');
+export default function app() {
+  console.log("app worked");
+}
